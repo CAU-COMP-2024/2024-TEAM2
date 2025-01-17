@@ -4,6 +4,8 @@ const cors = require("cors");
 const session = require("express-session");
 const connect = require("./schemas");
 const axios = require("axios");
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./common/swagger-output.json')
 
 connect();
 
@@ -53,6 +55,8 @@ app.get("/api/geocode/reverse", async (req, res) => {
 
 app.use("/member", require("./routes/memberRouter"));
 app.use("/board", require("./routes/boardRouter"));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }));
 
 app.listen(8080, () => {
   console.log("listen umm..umm..um...");
